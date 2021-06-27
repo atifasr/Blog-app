@@ -46,16 +46,6 @@ def topics(request):
 
 
 
-def posts_(request):
-    if request.user.is_authenticated:
-        if request.method == "GET":
-            # topic_id = topic.objects.get(user=request.user)
-
-            entry_set = entry.objects.filter(user=request.user)
-            context = {'topics': entry_set,
-                       'user_name': request.session['user_name'],}
-            return render(request, 'learning_logs/dashboard.html', context)
-
 
 
 # Getting entry by topic id
@@ -116,7 +106,7 @@ def login_form(request):
             if user is not None:
                 login(request, user)
                # user is authenticated
-                return redirect('/dashboard')
+                return redirect('/')
             else:
                 return redirect('/get_form')
     context = {
@@ -124,16 +114,18 @@ def login_form(request):
     }
     return render(request, 'learning_logs/login_form.html', context)
 
-
-def dashboard_(request):
+# User profile posts
+def posts_(request):
     if request.user.is_authenticated:
-        topic_count = topic.objects.filter(user__id=request.user.id)
-
-        if request.method=='GET':
-            return render(request, 'learning_logs/dashboard.html', {
-                'user_name': request.session['user_name'],
-                'post_count': topic_count.count()
-            })
+        if request.method == "GET":
+            topic_count = topic.objects.filter(user=request.user.id)
+            entry_set = entry.objects.filter(user=request.user)
+            context = {
+                        'topics': entry_set,
+                       'user_name': request.session['user_name'],
+                       'post_count': topic_count.count(),
+                       }
+            return render(request, 'learning_logs/dashboard.html', context)
     else:
         return redirect('/login')
 
@@ -168,9 +160,8 @@ def update_post(request, topic_id):
         topic_ini = topic.objects.get(id=topic_id)
         context = {
             'topic': topic_ini,
-            'text': entry.objects.get(topic__id=topic_id).text,
+            'text': entry.objects.get(topic=topic_ini).text,
         }
-        # update_frm = EditForm(initial=data)
         return render(request, 'learning_logs/add_page.html', context)
 
     elif request.method=='POST':

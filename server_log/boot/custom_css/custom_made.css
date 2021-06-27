@@ -1,0 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+
+   .layout{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+    justify-content:space-evenly;
+}

@@ -1,7 +1,13 @@
 {% extends "learning_logs/base.html" %} {% block content %}
-<form action="{% url 'learning_logs:login-form' %}" method="POST">
+
+
+
+<div class="form-group d-flex">
+  <form action="{% url 'learning_logs:login-form' %}" class="form-control" method="POST">
   {{form.as_p}}
-  <button type="submit">submit</button>
+  <button type="submit" class="form-control">submit</button>
 </form>
+
+</div>
 
 {% endblock content %}

@@ -73,6 +73,7 @@ CHOICES = [ ( "Food", "Food"),
 
 class Category(models.Model):
     name = models.CharField(max_length=255,choices=CHOICES)
+    description =models.TextField()
 
     class Meta:
         verbose_name_plural = 'Category'
