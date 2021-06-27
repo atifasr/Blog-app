@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html" %} {% block content %}
+<h1 class="display-5">Add an article</h1>
+<form action="" method="POST" enctype="multipart/form-data">
+  <div class="form-group">
+
+<!--    <div class="dropdown">-->
+<!--  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--    Category-->
+<!--  </button>-->
+<!--  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--    {% for val in choices %}-->
+<!--    <a class="dropdown-item" href="#">{{ val.name }}</a>-->
+<!--    {% endfor %}-->
+<!--  </div>-->
+<!--</div>-->
+
+  <select name="topic_name" id="cars">
+    {% for val in choices %}
+      <option value="{{val.name}}">{{ val.name }}</option>
+     {% endfor %}
+  </select>
+    <textarea cols="30" rows="10" class="form-control" name="text">{{ text }}</textarea>
+      <input type="file" id="myFile" name="picture">
+  </div>
+  <button type="submit" class="btn btn-dark" value="send">Submit</button>
+</form>
+{% endblock %}

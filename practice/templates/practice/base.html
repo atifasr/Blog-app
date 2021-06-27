@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+    <title>
+        {% block title %} scribbling through! {% endblock %}
+    </title>
+
+    <head>
+         {{ date }}  
+        <h1 class="display-style 1" style="text-transform: capitalize;">
+            blog box!
+        </h1>
+        <style>
+            .nav_bar .nav li{
+                display: inline-block;
+                padding: 2em;
+                text-transform: capitalize;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="nav_bar">
+        <ul class="nav"><li>News</li><li>Groceries</li><li><a href="{% url 'practice:blog' %}">Blog</a></li><a href="{% url 'practice:register' %}"><li>register</li></a><ul>
+        </div>
+            {% block content %}
+
+        {% endblock %}
+
+    </body>
+</html>

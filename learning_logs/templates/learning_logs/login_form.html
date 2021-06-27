@@ -1,0 +1,7 @@
+{% extends "learning_logs/base.html" %} {% block content %}
+<form action="{% url 'learning_logs:login-form' %}" method="POST">
+  {{form.as_p}}
+  <button type="submit">submit</button>
+</form>
+
+{% endblock content %}

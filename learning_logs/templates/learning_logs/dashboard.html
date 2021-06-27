@@ -1,0 +1,32 @@
+{% extends "learning_logs/base.html" %}
+
+
+{% block content %}
+<h2>Hi {{ user_name }}! </h2>
+
+
+  <button type="button" class="btn btn-primary">
+    <a href="{% url 'learning_logs:get-posts' %}">
+ Posts</a>  <span class="badge badge-light">{{post_count}}</span>
+</button>
+<button>
+  <a href="{% url 'learning_logs:add_page' %}" class="btn btn-success"
+    >Add a Article</a
+  >
+</button>
+
+{% for val in topics %}
+
+<h3>{{val.topic}}</h3>
+<section>{{val.text}}</section>
+<small>{{val.date_added}}</small>
+<button class="btn btn-outline-secondary">
+    <a href="{% url 'learning_logs:update-post' val.id %}"> Edit</a>
+  </button>
+{% endfor %}
+
+
+
+
+<!-- <p>{{ user_name }} {{ id }}</p> -->
+{% endblock %}

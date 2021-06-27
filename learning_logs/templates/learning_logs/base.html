@@ -1,0 +1,100 @@
+<html>
+  <head>
+    {% load static %}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="{% url 'learning_logs:index' %}">BlogBound</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+
+          {% if user %}
+              <li class="nav-item active">
+            <a class="nav-link" href="{% url 'learning_logs:dash-board' %}"
+              >{{ user }}</a
+            >
+             </li>
+
+           <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning_logs:log-out' %}"
+              >logout</a
+            >
+          </li>
+          {% else %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'learning_logs:login-form' %}"
+              >login</a
+            >
+          </li>
+           <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="{% url 'learning_logs:get_form' %}"
+              >Register</a
+            >
+          </li>
+
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'learning_logs:get-categories' %}"
+              >Categories</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <link
+      href="{% static 'css/bootstrap.min.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="{% static 'css/bootstrap.css' %}"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <script src="{% static 'css/bootstrap.min.js' %}"></script>
+    <title></title>
+  </head>
+
+ <body>
+  <div class="container-fluid">
+  {% block content %}
+
+  {% for val in entries %}
+  <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
+  <div class="card-body" href="#">
+    <h5 class="card-title">{{ val.topic }}</h5>
+    <p class="card-text">{{ val.text }}.</p>
+    <small>{{val.date_added}}</small>
+  </div>
+
+  <button type="button" class="btn btn-outline-danger">
+    <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
+  </button>
+
+  <button class="btn btn-outline-secondary">
+      <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
+  </button>
+</div>
+
+  {% endfor %}
+
+{% endblock content %}
+    </div>
+ </body>
+
+</html>

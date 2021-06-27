@@ -1,0 +1,27 @@
+{% extends "learning_logs/base.html"%}
+
+
+{% block content %}
+
+{% if disp %}
+<section>
+    {% for topic in topics %}
+    <p>{{topic.article_name}}</p>
+    {% for val in topic.entry_set.all %}
+        <p>{{val.text}}</p>
+     {% endfor %}
+    <p>{{topic.date_added}}</p>
+    {% endfor %}
+</section>
+
+{% else %}
+
+<section>
+
+{% for val in categories %}
+    <a href="{% url 'learning_logs:topics' val.name %}">{{val}}</a>
+{% endfor %}
+</section>
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "learning_logs/base.html" %} {% block content %}
+<form action="{% url 'learning_logs:get_form' %}" method="POST">
+  <h3 class="display-4">Create User</h3>
+  {% csrf_token %}
+  <div class="form-group">{{ form.as_p}}
+
+  <button class="btn primary" type="submit">Register</button>
+</form>
+</div>
+
+{% endblock content %}
