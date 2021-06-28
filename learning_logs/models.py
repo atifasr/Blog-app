@@ -109,7 +109,7 @@ class entry(models.Model):
     #         return self.get_like_set.count()
 
     def __str__(self):
-        return f'{self.text[:50]}...'
+        return f'{self.text[:80]}...'
 
 
 class Comment(models.Model):
