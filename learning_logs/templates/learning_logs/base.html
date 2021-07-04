@@ -18,7 +18,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
 
-          {% if user %}
+          {% if user or logged_in %}
               <li class="nav-item active">
             <a class="nav-link" href="{% url 'learning_logs:dash-board' %}"
               >{{ user }}</a
@@ -36,23 +36,19 @@
               >login</a
             >
           </li>
-           <li class="nav-item">
+          
+
+          {% endif %}
+          <li class="nav-item">
             <a
               class="nav-link disabled"
               href="{% url 'learning_logs:get_form' %}"
               >Register</a
             >
           </li>
-
-          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'learning_logs:get-categories' %}"
               >Categories</a
-            >
-          </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'learning_logs:get-categories' %}"
-              >News</a
             >
           </li>
              </li>
@@ -90,16 +86,44 @@
 
  <body>
 
+
+
    {% block content %}
+
   <div class="container-fluid layout">
+<div class="row">
+   {% for val in top_rated %}
+        <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
+        <div class="card-body" href="#">
+          <a href="#"><h5 class="card-title">{{ val.topic }}</h5></a>
+          <p class="card-text">{{ val }} </p>
+          <small>{{val.date_added}}</small>
+        </div>
+
+        <button type="button" class="btn btn-outline-danger">
+          <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
+        </button>
+
+        <button class="btn btn-outline-secondary">
+            <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
+        </button>
+      </div>
+
+    {% endfor %}
 
 
+</div>
+
+
+<div class="row">
+  <!--      displaying all the posts without signing in-->
   {% for val in entries %}
   <div class="card" style="width: 18rem;">
   <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
   <div class="card-body" href="#">
-    <h5 class="card-title">{{ val.topic }}</h5>
-    <p class="card-text">{{ val }}.</p>
+    <a href="#"><h5 class="card-title">{{ val.topic }}</h5></a>
+    <p class="card-text">{{ val }} </p>
     <small>{{val.date_added}}</small>
   </div>
 
@@ -113,9 +137,13 @@
 </div>
 
   {% endfor %}
+
+
   </div>
 {% endblock content %}
 
+
+</div>
  </body>
 
 </html>

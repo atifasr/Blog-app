@@ -1,13 +1,42 @@
 {% extends "learning_logs/base.html" %} {% block content %}
 
-
-
 <div class="form-group d-flex">
-  <form action="{% url 'learning_logs:login-form' %}" class="form-control" method="POST">
-  {{form.as_p}}
-  <button type="submit" class="form-control">submit</button>
-</form>
-
+  <form
+    action="{% url 'learning_logs:login-form' %}"
+    class="form-control"
+    method="POST"
+    id="msform"
+  >
+    <fieldset>
+      <h1>Login</h1>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"
+          ><span class="glyphicon glyphicon-user"> </span
+        ></span>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Username"
+          name="username"
+        />
+      </div>
+      <br />
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon"
+          ><span class="glyphicon glyphicon-lock"> </span
+        ></span>
+        <input
+          type="password"
+          class="form-control"
+          name="password"
+          placeholder="•••••••••••"
+        />
+      </div>
+      <br />
+      <input type="submit" class="btn btn-success" />
+    </fieldset>
+    <button type="submit" class="form-control">submit</button>
+  </form>
 </div>
 
 {% endblock content %}

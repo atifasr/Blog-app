@@ -21,6 +21,7 @@ urlpatterns = [
     path('categories', views.get_categories, name='get-categories'),
     path('posts/', views.posts_, name='get-posts'),
     path('topics/<str:art_name>/', views.topic_a, name='topics'),
+    path('send_email/', views.send_email, name='send-email'),
 
 
 ]

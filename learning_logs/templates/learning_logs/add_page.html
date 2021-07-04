@@ -9,14 +9,14 @@
 <!--  </button>-->
 <!--  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
 <!--    {% for val in choices %}-->
-<!--    <a class="dropdown-item" href="#">{{ val.name }}</a>-->
+<!--    <a class="dropdown-item" href="{{val.name}}">{{ val }}</a>-->
 <!--    {% endfor %}-->
 <!--  </div>-->
 <!--</div>-->
 
   <select name="topic_name" id="cars">
     {% for val in choices %}
-      <option value="{{val.name}}">{{ val.name }}</option>
+      <option value="{{val.name}}">{{ val }}</option>
      {% endfor %}
   </select>
     <textarea cols="30" rows="10" class="form-control" name="text">{{ text }}</textarea>

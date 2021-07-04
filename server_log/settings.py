@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # my apps
     'learning_logs',
+    'verify_email.apps.VerifyEmailConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -83,8 +84,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': '3ati',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -136,3 +141,14 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+
+# email settings
+
+
+# FROM_EMAIL = 'atifshafi63@gmail.com' # replace with your address
+
+
+#API key from Sendgrid
+SENDGRID_API_KEY = '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'
+

@@ -80,6 +80,8 @@ class Category(models.Model):
 
     def __str__(self):
         return str(self.name)
+    def get_descrip(self):
+        return self.description[:30]
 
 
 class topic(models.Model):
@@ -128,3 +130,15 @@ class likes(models.Model):
 
     class Meta:
         verbose_name_plural = 'likes'
+
+
+
+
+class Subscriber(models.Model):
+
+    email = models.EmailField(unique=True)
+    conf_num = models.CharField(max_length=15)
+    confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email + " (" + ("not " if not self.confirmed else "") + "confirmed)"

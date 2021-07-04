@@ -3,7 +3,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import topic, entry, Comment,likes,Category
+from .models import topic, entry, Comment,likes,Category,Subscriber
 
 
 class topicAdmin(admin.ModelAdmin):
@@ -23,5 +23,6 @@ admin.site.register(topic, topicAdmin)
 admin.site.register(Comment)
 admin.site.register(likes,likesAdmin)
 admin.site.register(Category,CategoryAdmin)
+admin.site.register(Subscriber)
 
 # admin.site.register(student)

@@ -16,12 +16,22 @@
 
 {% else %}
 
+
+<div class="card_flex">
 <section>
 
 {% for val in categories %}
-    <a href="{% url 'learning_logs:topics' val.name %}">{{val}}</a>
+    <div class="card" style="width: 18rem;">
+  <img class="card-img-top" src="..." >
+  <b><a href="{% url 'learning_logs:topics' val.name %}">{{val}}</a></b>
+        <div class="card-body">
+
+    <p class="card-text">{{val.get_descrip}}</p>
+  </div>
+</div>
 {% endfor %}
 </section>
+    </div>
 
 {% endif %}
 {% endblock %}
