@@ -16,12 +16,12 @@ urlpatterns = [
     path('logout/', views.log_out, name='log-out'),
     path('comment/<int:entry_id>/', views.comment_add, name='comment'),
     path('update_post/<int:topic_id>/', views.update_post, name='update-post'),
-    path('like/<int:entry_id>',views.add_like,name='add-like'),
-    path('all_likes/<int:entry_id>',views.all_likes,name='all-likes'),
+    path('like/<int:entry_id>', views.add_like, name='add-like'),
+    path('all_likes/<int:entry_id>', views.all_likes, name='all-likes'),
     path('categories', views.get_categories, name='get-categories'),
     path('posts/', views.posts_, name='get-posts'),
     path('topics/<str:art_name>/', views.topic_a, name='topics'),
     path('send_email/', views.send_email, name='send-email'),
-
+    path('about_me/', views.about_me, name='about-me'),
 
 ]

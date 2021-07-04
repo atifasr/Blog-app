@@ -242,3 +242,8 @@ def send_email(request):
     response = sg.send(message)
 
     return render(request, 'learning_logs/base.html')
+
+
+def about_me(request):
+    if request.method == "GET":
+        return render(request, 'learning_logs/about.html')
