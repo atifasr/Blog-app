@@ -18,10 +18,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
 
-          {% if user or logged_in %}
+              {% if user.is_authenticated %}
               <li class="nav-item active">
             <a class="nav-link" href="{% url 'learning_logs:dash-board' %}"
-              >{{ user }}</a
+              >{{request.user.first_name}}</a
             >
              </li>
 
@@ -38,7 +38,7 @@
           </li>
           
 
-          {% endif %}
+       
           <li class="nav-item">
             <a
               class="nav-link disabled"
@@ -46,11 +46,14 @@
               >Register</a
             >
           </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href="{% url 'learning_logs:get-categories' %}"
               >Categories</a
             >
+
           </li>
+             
              </li>
             <li class="nav-item">
             <a class="nav-link" href="{% url 'learning_logs:about-me' %}"

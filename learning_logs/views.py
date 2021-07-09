@@ -29,17 +29,8 @@ def index(request):
     entries_ = entry.objects.all().order_by('date_added')
     top_rated = entry.objects.annotate(
         no_of_likes=Count('likes')).order_by('-no_of_likes')[:2]
-    if request.method == 'GET':
-        if request.user.is_authenticated:
-            request.session['user_name'] = request.user.get_short_name()
-            request.session['logged_in'] = True
-        else:
-            request.session['user_name'] = None
-            request.session['logged_in'] = False
-        return render(request, 'learning_logs/base.html', {'user':  request.session['user_name'],
-                                                           'entries': entries_,
-                                                           'logged_in': request.session['logged_in'],
-                                                           'top_rated': top_rated})
+
+    return render(request, 'learning_logs/base.html', {'entries': entries_,   'top_rated': top_rated})
 
 
 # Topics views
@@ -210,7 +201,8 @@ def add_like(request, entry_id):
         new_like, created = likes.objects.get_or_create(
             user=request.user, post=entry_ins)
         if not created:
-            # the user already liked this picture before
+            # the user already liked this picture before then delete (unlike the post)
+            likes.objects.filter(user=request.user, post=entry_ins).delete()
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
