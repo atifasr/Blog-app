@@ -2,15 +2,51 @@
   box-sizing: border-box;
 }
 
-
-   .layout{
-    display: flex;
-    flex-direction: row;
-    flex-wrap:wrap;
+body {
+  background-color: rgb(202, 193, 193);
 }
 
-    .card_flex{
-        display: flex;
-        flex-direction: row;
-        flex-wrap:wrap;
-    }
+nav {
+  font-weight: bolder;
+}
+.layout {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card_flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.card {
+  height: 50vh;
+  margin: 2em;
+  border-radius: 1.5em;
+  font-size: 80%;
+
+  max-width: 25vw;
+}
+
+.card-img-top {
+  width: 100%;
+  border-radius: 20% 20% 20% 20%;
+  height: 60%;
+}
+
+.cat {
+  display: flex;
+  flex-direction: column;
+}
+
+.cat b {
+  margin: 3% 0 0 0;
+  font-size: 5vw;
+  background-color: whitesmoke;
+}
+.card button {
+  max-width: 40%;
+  border-radius: 50%;
+}

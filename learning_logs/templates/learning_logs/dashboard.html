@@ -1,32 +1,35 @@
-{% extends "learning_logs/base.html" %}
+{% extends "learning_logs/base.html" %} {% block content %}
+<h2>Hi {{ request.user.first_name }}!</h2>
 
+<a href="{% url 'learning_logs:get-posts' %}" class="btn btn-primary">
+  Total posts <span class="badge badge-light">{{entries.count}}</span></a
+>
 
-{% block content %}
-<h2>Hi {{ user_name }}! </h2>
+<a href="{% url 'learning_logs:add_page' %}" class="btn btn-primary"
+  >Add a Article</a
+>
 
+<style>
+  .article_det {
+    box-shadow: 5px 10px #888888;
+    background-color: rgb(224, 224, 215);
+    border-radius: 10%;
+    margin: 5% 0 5% 0;
+    border: 1.3px solid white;
+    font-size: 1.1vw;
+    font-family: Ubntu Mono, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: bolder;
+  }
+</style>
+{% for val in entries %}
 
-
-    <a href="{% url 'learning_logs:get-posts' %}" class="btn btn-primary">
- Posts <span class="badge badge-light">{{post_count}}</span></a>
-
-
-  <a href="{% url 'learning_logs:add_page' %}" class="btn btn-primary"
-    >Add a Article</a
-  >
-
-
-{% for val in topics %}
-
-<h3>{{val.topic}}</h3>
-<section>{{val.text}}</section>
-<small>{{val.date_added}}</small>
-<button class="btn btn-outline-secondary">
+<div class="article_det">
+  <h3 class="category">{{val.topic}}</h3>
+  <h3 class="topic_name">{{val.topic.name}}</h3>
+  <section>{{val.text}}</section>
+  <small>{{val.date_added}}</small>
+  <button class="btn btn-outline-secondary">
     <a href="{% url 'learning_logs:update-post' val.id %}"> Edit</a>
   </button>
-{% endfor %}
-
-
-
-
-<!-- <p>{{ user_name }} {{ id }}</p> -->
-{% endblock %}
+</div>
+{% endfor %} {% endblock %}

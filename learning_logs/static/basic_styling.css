@@ -1,0 +1,5 @@
+.contain {
+  background-color: tomato;
+  display: flex;
+  flex-direction: column;
+}

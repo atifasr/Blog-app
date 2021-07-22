@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from posixpath import basename
-from .secret import key
+from .secret import key, sendgridkey
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -138,9 +138,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     'server_log/boot',
+    os.path.join(BASE_DIR, 'learning_logs/static'),
 ]
 
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 
@@ -150,6 +151,5 @@ MEDIA_URL = '/media/'
 # FROM_EMAIL = 'atifshafi63@gmail.com' # replace with your address
 
 
-#API key from Sendgrid
-SENDGRID_API_KEY = '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'
-
+# API key from Sendgrid
+SENDGRID_API_KEY = sendgridkey

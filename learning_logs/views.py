@@ -32,6 +32,17 @@ def index(request):
 
     return render(request, 'learning_logs/base.html', {'entries': entries_,   'top_rated': top_rated})
 
+# get specific article
+
+
+def get_article(request):
+    if request.method == 'GET':
+        filter_ = request.GET.get('id')
+        article = entry.objects.get(id=filter_)
+        context = {
+            'entry': article}
+    return render(request, 'learning_logs/article.html', context)
+
 
 # Topics views
 def topics(request):
@@ -106,12 +117,11 @@ def login_form(request):
 def posts_(request):
     if request.user.is_authenticated:
         if request.method == "GET":
-            topic_count = topic.objects.filter(user=request.user.id)
-            entry_set = entry.objects.filter(user=request.user)
+
+            entry_set = entry.objects.filter(
+                user=request.user).order_by('-date_added')
             context = {
-                'topics': entry_set,
-                'user_name': request.session['user_name'],
-                'post_count': topic_count.count(),
+                'entries': entry_set,
             }
             return render(request, 'learning_logs/dashboard.html', context)
     else:
@@ -128,13 +138,14 @@ def add_page(request):
             }
 
         if request.method == 'POST':
+            name = request.POST.get('article_name')
             topic_n = request.POST['topic_name']
             cat_ = Category.objects.filter(name=topic_n)
             topic_det = request.POST['text']
-            picture = request.FILES['picture']
+            picture = request.FILES.get('picture')
 
-            top = topic(
-                user=request.user, article_name=cat_[0])
+            top = topic(name=name,
+                        user=request.user, article_name=cat_[0])
             top.save()
             entery = entry.objects.create(
                 user=request.user, topic=top, text=topic_det, picture=picture)
@@ -147,15 +158,18 @@ def add_page(request):
 
 @csrf_exempt
 def update_post(request, topic_id):
+
+    # getting topic text and updating
     if request.method == "GET":
         topic_ini = topic.objects.get(id=topic_id)
+        topic_text = entry.objects.get(topic=topic_ini).text
         context = {
             'topic': topic_ini,
-            'text': entry.objects.get(topic=topic_ini).text,
+            'text': topic_text
         }
         return render(request, 'learning_logs/add_page.html', context)
 
-    elif request.method == 'POST':
+    else:
         topic_ini = topic.objects.get(id=topic_id)
         new_entry = entry.objects.get(topic__id=topic_id)
         topic_ini.article_name = request.POST['topic_name']
@@ -203,8 +217,8 @@ def add_like(request, entry_id):
         if not created:
             # the user already liked this picture before then delete (unlike the post)
             likes.objects.filter(user=request.user, post=entry_ins).delete()
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+            return redirect('/')
+        return redirect('/')
 
 
 def get_categories(request):
@@ -212,6 +226,21 @@ def get_categories(request):
         categories = Category.objects.all()
         context = {
             'categories': categories,
+        }
+        return render(request, 'learning_logs/categories.html', context)
+
+
+def get_specifics(request):
+    if request.method == 'GET':
+        filter_ = request.GET.get('category')
+        print(filter_)
+        topics = topic.objects.filter(
+            article_name__name__iexact=filter_).order_by('-date_added')
+
+        print(topics)
+        context = {
+            'specifics': True,
+            'topics': topics
         }
         return render(request, 'learning_logs/categories.html', context)
 

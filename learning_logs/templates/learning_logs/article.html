@@ -1,0 +1,11 @@
+{% extends 'learning_logs/base.html' %} {% load static %} {% block content %}
+<link rel="stylesheet" href="{% static url 'basic_styling.css' %}" />
+
+<article class="contain">
+  <b>Category :{{entry.topic.article_name.name}} </b>
+  <small>created by :{{entry.user.first_name}} </small>
+  <small>{{entry.date_added}}</small>
+
+  <p>{{entry.text}}</p>
+</article>
+{% endblock %}

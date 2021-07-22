@@ -9,6 +9,7 @@ urlpatterns = [
     # homepage
     path('', views.index, name='index'),
     path('topics/', views.topics, name='topics'),
+    path('get_article/', views.get_article, name='get_article'),
     path('get_form/', views.give_data, name='get_form'),
     path('login/', views.login_form, name='login-form'),
     path('dashboard/', views.posts_, name='dash-board'),
@@ -23,5 +24,6 @@ urlpatterns = [
     path('topics/<str:art_name>/', views.topic_a, name='topics'),
     path('send_email/', views.send_email, name='send-email'),
     path('about_me/', views.about_me, name='about-me'),
+    path('get_specifics/', views.get_specifics),
 
 ]

@@ -67,19 +67,20 @@ from django.conf import settings
 #     objects = UserManager()
 
 
-CHOICES = [ ( "Food", "Food"),
-             ( 'Travel', 'Travel'), ('Music', 'Music'), ('Lifestyle', 'Lifestyle'), ('Fitness', 'Fitness'), ('Sports', 'Sports')]
+CHOICES = [("Food", "Food"),
+           ('Travel', 'Travel'), ('Music', 'Music'), ('Lifestyle', 'Lifestyle'), ('Fitness', 'Fitness'), ('Sports', 'Sports')]
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=255,choices=CHOICES)
-    description =models.TextField()
+    name = models.CharField(max_length=255, choices=CHOICES)
+    description = models.TextField()
 
     class Meta:
         verbose_name_plural = 'Category'
 
     def __str__(self):
         return str(self.name)
+
     def get_descrip(self):
         return self.description[:30]
 
@@ -87,24 +88,31 @@ class Category(models.Model):
 class topic(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    article_name = models.ForeignKey(Category,on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    article_name = models.ForeignKey(Category, on_delete=models.CASCADE)
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.article_name)
 
 
-
-
 class entry(models.Model):
-    user= models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     topic = models.ForeignKey(topic, on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-    picture = models.ImageField(upload_to='images')
+    picture = models.ImageField(upload_to='images', blank=True)
 
     class Meta:
         verbose_name_plural = 'entries'
+
+    @property
+    def get_photo_url(self):
+        if self.photo and hasattr(self.photo, 'url'):
+            return self.photo.url
+        else:
+            return " "
 
     # def get_like_set(self):
     #     if self.likes_set.count():
@@ -116,22 +124,23 @@ class entry(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(entry, on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         verbose_name_plural = 'Comment'
 
 
 class likes(models.Model):
-    user= models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    post= models.ForeignKey(entry,on_delete=models.CASCADE)
-    created=models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    post = models.ForeignKey(entry, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'likes'
-
-
 
 
 class Subscriber(models.Model):

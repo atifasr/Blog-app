@@ -94,23 +94,31 @@
    {% block content %}
 
   <div class="container-fluid layout">
-<div class="row">
+<div class="row top_rated">
    {% for val in top_rated %}
+  
+  
         <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
+       
+          <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
+        
+
+        <b></b>
+       
         <div class="card-body" href="#">
-          <a href="#"><h5 class="card-title">{{ val.topic }}</h5></a>
+          <a href="/get_article/?id={{val.id}}"><h5 class="card-title">{{ val.topic }}</h5></a>
           <p class="card-text">{{ val }} </p>
           <small>{{val.date_added}}</small>
+          <button type="button" class="btn btn-outline-danger">
+            <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
+          </button>
+  
+          <button class="btn btn-outline-secondary">
+              <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
+          </button>
         </div>
 
-        <button type="button" class="btn btn-outline-danger">
-          <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
-        </button>
-
-        <button class="btn btn-outline-secondary">
-            <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
-        </button>
+        
       </div>
 
     {% endfor %}
@@ -122,21 +130,25 @@
 <div class="row">
   <!--      displaying all the posts without signing in-->
   {% for val in entries %}
-  <div class="card" style="width: 18rem;">
+  <div class="card" >
+    
   <img class="card-img-top" src="{{val.picture.url}}" alt="Card image cap">
   <div class="card-body" href="#">
-    <a href="#"><h5 class="card-title">{{ val.topic }}</h5></a>
+    <b>{{val.topic.name}}</b>
+    <a href="/get_article/?id={{val.id}}"><h5 class="card-title">{{ val.topic }}</h5></a>
     <p class="card-text">{{ val }} </p>
     <small>{{val.date_added}}</small>
+    <button type="button" class="btn btn-outline-danger">
+      <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
+    </button>
+  
+    <button class="btn btn-outline-secondary">
+        <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
+    </button>
   </div>
+  
 
-  <button type="button" class="btn btn-outline-danger">
-    <a href="{% url 'learning_logs:comment' val.id %}"> Comment </a><span class="badge badge-light">{{val.comment_set.count}}</span>
-  </button>
-
-  <button class="btn btn-outline-secondary">
-      <a href="{% url 'learning_logs:add-like' val.id %}"> Like</a><span class="badge badge-light">{{val.likes_set.count}}</span>
-  </button>
+  
 </div>
 
   {% endfor %}

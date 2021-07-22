@@ -1,37 +1,23 @@
-{% extends "learning_logs/base.html"%}
-
-
-{% block content %}
-
-{% if disp %}
-<section>
-    {% for topic in topics %}
-    <p>{{topic.article_name}}</p>
-    {% for val in topic.entry_set.all %}
-        <p>{{val.text}}</p>
-     {% endfor %}
-    <p>{{topic.date_added}}</p>
-    {% endfor %}
-</section>
-
-{% else %}
-
-
-<div class="card_flex">
-<section>
-
-{% for val in categories %}
-    <div class="card" style="width: 18rem;">
-  <img class="card-img-top" src="..." >
-  <b><a href="{% url 'learning_logs:topics' val.name %}">{{val}}</a></b>
-        <div class="card-body">
-
-    <p class="card-text">{{val.get_descrip}}</p>
+{% extends "learning_logs/base.html"%} {% block content %} {% if specifics%}
+{%for val in topics %}
+<div class="card" style="max-width: 90vw">
+  <div class="card-body" href="#">
+    <a href="/get_article/?id={{val.id}}"
+      ><h5 class="card-title">{{ val.name }}</h5></a
+    >
+    <p class="card-text">{{ val.article_name.name }}</p>
+    <small>{{val.date_added}}</small>
   </div>
 </div>
-{% endfor %}
-</section>
-    </div>
 
-{% endif %}
-{% endblock %}
+{% endfor %} {% else %}
+
+<section class="cat">
+  {% for val in categories %}
+
+  <b><a href="/get_specifics/?category={{val.name}}">{{val}}</a></b>
+
+  {% endfor %}
+</section>
+
+{% endif %} {% endblock %}
