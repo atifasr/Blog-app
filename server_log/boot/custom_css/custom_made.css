@@ -44,7 +44,7 @@ nav {
 .cat b {
   margin: 3% 0 0 0;
   font-size: 5vw;
-  background-color: whitesmoke;
+  background-color: rgb(218, 198, 198);
 }
 .card button {
   max-width: 40%;
